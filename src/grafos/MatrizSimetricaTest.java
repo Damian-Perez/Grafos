@@ -1,23 +1,29 @@
 package grafos;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 public class MatrizSimetricaTest {
 
-	public static void main(String[] args) {
-		
+	@Test
+	public void miTest() {
 		MatrizSimetrica matriz = new MatrizSimetrica(4);
-		
-		System.out.println(matriz);
-
 		matriz.setValue(2,0, true);
-		
-		System.out.println(matriz);
-		
-		System.out.println(matriz.getValue(3, 0));
-		
-		//System.out.println(matriz.getValorMatrizTi(2, 0));
-		
-		
-
+		Assert.assertEquals(false, matriz.getValue(3, 0));
+	}
+	
+	@Test
+	public void miTest2() {
+		MatrizSimetrica matriz = new MatrizSimetrica(4);
+		matriz.setValue(2,0, true);
+		Assert.assertEquals(true, matriz.getValue(2, 0));
+	}
+	
+	@Test
+	public void miTest3() {
+		MatrizSimetrica matriz = new MatrizSimetrica(4);
+		matriz.setValue(2,0, true);
+		Assert.assertEquals(true, matriz.getValue(0, 2));
 	}
 
 }
