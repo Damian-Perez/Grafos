@@ -42,7 +42,8 @@ public class Generador {
 			}
 		}
 
-		Collections.shuffle(aristas);
+		Collections.shuffle(aristas_tmp);
+		
 		int p = (int) (aristas_tmp.size() * porcentaje) / 100;
 
 		for (int i = 0; i < p; i++) {
@@ -54,7 +55,6 @@ public class Generador {
 		String miPath = "archivos/GrafoPorcentajeAdyacente_" + cantNodos + "_" + (int) porcentaje + ".in";
 		escribirGrafoEnArchivo(cantNodos, cantAristas, porcentaje, grado, aristas, miPath);
 	}
-	
 	
 	private static Grado calcularGrado(ArrayList<Arista> aristas, int cantNodos) {
 		
@@ -82,7 +82,6 @@ public class Generador {
 		return new Grado(gradoMinimo, gradoMaximo);
 	}
 	
-
 	private static void escribirGrafoEnArchivo(int cantNodos, int cantAristas, double porcAdyacencia, Grado grado, ArrayList<Arista> arista, String miPath) throws IOException {
 		PrintWriter salida = new PrintWriter(new FileWriter(miPath));
 

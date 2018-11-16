@@ -22,8 +22,5 @@ public class Arista {
 	public int getNodo2() {
 		return nodo2;
 	}
-	
-	
-	
-	
+
 }
