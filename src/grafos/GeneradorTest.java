@@ -9,6 +9,7 @@ public class GeneradorTest {
 		GrafoNDNP grafo = new GrafoNDNP("archivos/GrafoPorcentajeAdyacente_5_70.in");
 		System.out.println(grafo);
 		//System.out.println(grafo.coloreoWelshPowell());
-		System.out.println(grafo.coloreoMatula());
+		//System.out.println(grafo.coloreoMatula());
+		grafo.coloreoMatula("archivos/GrafoPorcentajeAdyacente_5_70.out");
 	}
 }

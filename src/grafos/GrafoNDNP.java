@@ -2,6 +2,9 @@ package grafos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -111,11 +114,12 @@ public class GrafoNDNP {
 		return this.grafo.getValue(nodo1, nodo2);
 	}
 	
-	public void coloreoSecuencial() {
-		colorear();
+	public void coloreoSecuencial(String pathOut) throws IOException {
+		Collections.shuffle(this.nodo);
+		escribirGrafoColoreado(colorear(),pathOut);
 	}
 	
-	public GrafoColoreado coloreoWelshPowell() {
+	public void coloreoWelshPowell(String pathOut) throws IOException {
 		
 		Collections.sort(this.nodo, new Comparator<Nodo>() {
 			public int compare(Nodo nodo1, Nodo nodo2) {
@@ -123,10 +127,10 @@ public class GrafoNDNP {
 			}
 		});
 
-		return colorear();
+		escribirGrafoColoreado(colorear(),pathOut);
 	}
 	
-	public GrafoColoreado coloreoMatula() {
+	public void coloreoMatula(String pathOut) throws IOException {
 		
 		Collections.sort(this.nodo, new Comparator<Nodo>() {
 			public int compare(Nodo nodo1, Nodo nodo2) {
@@ -134,7 +138,21 @@ public class GrafoNDNP {
 			}
 		});
 		
-		return colorear();
+		escribirGrafoColoreado(colorear(),pathOut);
 	}
+	
+	public void escribirGrafoColoreado(GrafoColoreado grafo, String miPathOut) throws IOException {
+		
+		PrintWriter salida = new PrintWriter(new FileWriter(miPathOut));
+		
+		salida.println(this.cantNodos + " " + grafo.getCantColores());
+
+		for (Nodo nodos : grafo.getNodos()) {
+			salida.println(nodos.id + " " + nodos.color);
+		}
+		
+		salida.close();
+	}
+	
 	
 }
