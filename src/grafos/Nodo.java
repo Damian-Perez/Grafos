@@ -40,11 +40,9 @@ public class Nodo {
 		this.grado++;
 	}
 
-	@Override
 	public String toString() {
 		return "Nodo [" + id + ", " + grado + ", " + color + "]";
 	}
-	
-	
-	
+
+
 }

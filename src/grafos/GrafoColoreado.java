@@ -1,19 +1,19 @@
 package grafos;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class GrafoColoreado {
 
 	public int cantColores;
-	public Nodo[] nodos;
+	public ArrayList<Nodo> nodos;
 	
-	public GrafoColoreado(int cantColores, Nodo[] nodos) {
+	public GrafoColoreado(int cantColores, ArrayList<Nodo> nodos) {
 		this.cantColores = cantColores;
 		this.nodos = nodos;
 	}
 
 	public String toString() {
-		return "GrafoColoreado [cantColores=" + cantColores + ", nodos=" + Arrays.toString(nodos) + "]";
+		return "GrafoColoreado [cantColores=" + cantColores + ", nodos=" + nodos + "]";
 	}
 
 }

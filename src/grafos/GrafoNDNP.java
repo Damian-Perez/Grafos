@@ -2,7 +2,9 @@ package grafos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -14,7 +16,7 @@ public class GrafoNDNP {
 	private double porcAdyacencia; 
 	private int gradoMaximo;
 	private int gradoMinimo;
-	private Nodo[] nodo;
+	private ArrayList<Nodo> nodo;
 	private int cantidadColores;
 	
 	@SuppressWarnings("resource")
@@ -28,18 +30,18 @@ public class GrafoNDNP {
 		this.gradoMaximo = sc.nextInt();
 		this.gradoMinimo = sc.nextInt(); 
 		this.grafo = new MatrizSimetrica(this.cantNodos);
-		this.nodo = new Nodo[this.cantNodos];
+		this.nodo = new ArrayList<Nodo>();
 		this.cantidadColores = 0;
 		
-		for (int i = 0; i < nodo.length; i++) {
-			nodo[i] = new Nodo(i,0,0);
+		for (int i = 0; i < this.cantNodos; i++) {
+			nodo.add(i,new Nodo(i,0,0));
 		}
 
 		for (int i = 0; i < this.cantAristas; i++) {
 			Arista a = new Arista(sc.nextInt(), sc.nextInt());
 			this.grafo.setValue(a.getNodo1(), a.getNodo2(), true);
-			this.nodo[a.getNodo1()].sumarGrado();
-			this.nodo[a.getNodo2()].sumarGrado();
+			this.nodo.get(a.getNodo1()).sumarGrado();
+			this.nodo.get(a.getNodo2()).sumarGrado();
 		}
 
 		sc.close();
@@ -62,13 +64,12 @@ public class GrafoNDNP {
 		this.gradoMaximo = gradoMaximo;
 	}
 
-	@Override
 	public String toString() {
 		return "GrafoNDNP [grafo=" + grafo + ", cantNodos=" + cantNodos + ", cantAristas=" + cantAristas
-				+ ", porcAdyacencia=" + porcAdyacencia + ", gradoMaximo=" + gradoMaximo
-				+ ", gradoMinimo=" + gradoMinimo + ", nodo=" + Arrays.toString(nodo) + "]";
+				+ ", porcAdyacencia=" + porcAdyacencia + ", gradoMaximo=" + gradoMaximo + ", gradoMinimo=" + gradoMinimo
+				+ ", nodo=" + nodo + ", cantidadColores=" + cantidadColores + "]";
 	}
-	
+
 	public GrafoColoreado colorear() {
 		int i, color;
 		this.cantidadColores = 0;
@@ -80,7 +81,7 @@ public class GrafoNDNP {
 				color++;
 			}
 			
-			nodo[i].setColor(color);
+			nodo.get(i).setColor(color);
 			
 			if (color > this.cantidadColores) {
 				this.cantidadColores = color;
@@ -95,8 +96,8 @@ public class GrafoNDNP {
 		int i = 0;
 		
 		while(i < this.cantNodos) {
-			if(this.nodo[i].getColor() == color) {
-				if(esAdyacente(this.nodo[posicion].getId(), this.nodo[i].getId())) {
+			if(this.nodo.get(i).getColor() == color) {
+				if(esAdyacente(this.nodo.get(posicion).getId(), this.nodo.get(i).getId())) {
 					return false;
 				}
 			}
@@ -110,5 +111,30 @@ public class GrafoNDNP {
 		return this.grafo.getValue(nodo1, nodo2);
 	}
 	
+	public void coloreoSecuencial() {
+		colorear();
+	}
+	
+	public GrafoColoreado coloreoWelshPowell() {
+		
+		Collections.sort(this.nodo, new Comparator<Nodo>() {
+			public int compare(Nodo nodo1, Nodo nodo2) {
+				return nodo2.getGrado() - nodo1.getGrado(); 
+			}
+		});
+
+		return colorear();
+	}
+	
+	public GrafoColoreado coloreoMatula() {
+		
+		Collections.sort(this.nodo, new Comparator<Nodo>() {
+			public int compare(Nodo nodo1, Nodo nodo2) {
+				return nodo1.getGrado() - nodo2.getGrado(); 
+			}
+		});
+		
+		return colorear();
+	}
 	
 }
