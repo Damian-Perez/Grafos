@@ -153,6 +153,13 @@ public class GrafoNDNP {
 		
 		salida.close();
 	}
-	
+
+	public ArrayList<Nodo> getNodo() {
+		return nodo;
+	}
+
+	public int getCantNodos() {
+		return cantNodos;
+	}
 	
 }
