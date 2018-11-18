@@ -142,4 +142,30 @@ public class Generador {
 		return generarGrafoRegularPorGrado(cantNodos, grado);
 	}*/
 	
+	/*Generador grafo N partito */
+	/*Falta adaptar*/
+	
+	/*public static GrafoNPND generarGrafoNPartito(int cantNodos, int n){
+		// Creo una matriz simetrica para almacenar las aristas
+		MatrizSimetrica matAdyacencia = new MatrizSimetrica(cantNodos);
+		// Obtengo la cantidad de nodos que habrá por subconjuntos (el ultimo subconjunto puede no tener esta cantidad)
+		int cantNodosPorSubconjunto = cantNodos / n; 
+		int conjuntoLibre = cantNodos - cantNodosPorSubconjunto * (n-1);
+		// Si la cant de nodos por subconjunto es menor o igual que la cant nodos del ultimo conjunto
+		if(conjuntoLibre >= n)
+			cantNodosPorSubconjunto++;
+		// Por cada subconjunto, lo uno sus nodos al resto de los nodos de los demas subconjuntos menos a los del mismo
+		for(int i=0; i<n-1; i++){
+			// Por cada nodo del subconjunto lo uno al resto (solo los que no uní hasta ahora)
+			for(int j=0; j<cantNodosPorSubconjunto; j++){
+				// Uno el nodo actual con el resto que faltan unir de los demas subconjuntos
+				for(int k=0; k<cantNodos-cantNodosPorSubconjunto*(i+1); k++){
+					matAdyacencia.setValue(i*cantNodosPorSubconjunto+j, (i+1)*cantNodosPorSubconjunto+k, true);
+				}
+			}
+		}
+		// Devuelvo el grafo
+		return new GrafoNPND(matAdyacencia);
+	}
+	*/
 }
