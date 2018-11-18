@@ -137,19 +137,6 @@ public class GrafoNDNP {
 		
 		colorear().escribirGrafoColoreado(pathOut);
 	}
-	
-//	public void escribirGrafoColoreado(GrafoColoreado grafo, String miPathOut) throws IOException {
-//		
-//		PrintWriter salida = new PrintWriter(new FileWriter(miPathOut));
-//		
-//		salida.println(this.cantNodos + " " + grafo.getCantColores());
-//
-//		for (Nodo nodos : grafo.getNodos()) {
-//			salida.println(nodos.id + " " + nodos.color);
-//		}
-//		
-//		salida.close();
-//	}
 
 	public ArrayList<Nodo> getNodo() {
 		return nodo;
