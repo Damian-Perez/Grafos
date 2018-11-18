@@ -130,4 +130,16 @@ public class Generador {
 	}
 	*/
 	
+	/*Generador grafo regulares porcentaje de adyacencia */
+	/*Falta adaptar*/
+	/*public static GrafoNPND generarGrafoRegularPorPorcentajeDeAdyacencia(int cantNodos, double porcentaje){
+		// Calculo la cantidad de aristas que tendra el grafo
+		int cantAristas = (cantNodos*(cantNodos-1))/2;
+		// Calculo la cantidad de aristas que voy a tener (aproximadamente)
+		int cantAristasDelGrafoNPND = (int)(porcentaje * cantAristas);
+		// Obtengo el grado haciendo Grado = 2 * CantAristas / CantNodos
+		int grado = 2*cantAristasDelGrafoNPND/cantNodos;
+		return generarGrafoRegularPorGrado(cantNodos, grado);
+	}*/
+	
 }
