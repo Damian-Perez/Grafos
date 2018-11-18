@@ -2,9 +2,7 @@ package grafos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -91,8 +89,7 @@ public class GrafoNDNP {
 			}
 		}
 		
-		return new GrafoColoreado(this.cantidadColores, nodo);
-		
+		return new GrafoColoreado(this.cantNodos, this.cantidadColores, this.cantAristas, this.porcAdyacencia, this.gradoMaximo, this.gradoMinimo, nodo);
 	}
 	
 	public boolean sePuedeColorear(int posicion, int color) {
@@ -116,7 +113,7 @@ public class GrafoNDNP {
 	
 	public void coloreoSecuencial(String pathOut) throws IOException {
 		Collections.shuffle(this.nodo);
-		escribirGrafoColoreado(colorear(),pathOut);
+		colorear().escribirGrafoColoreado(pathOut);
 	}
 	
 	public void coloreoWelshPowell(String pathOut) throws IOException {
@@ -127,7 +124,7 @@ public class GrafoNDNP {
 			}
 		});
 
-		escribirGrafoColoreado(colorear(),pathOut);
+		colorear().escribirGrafoColoreado(pathOut);
 	}
 	
 	public void coloreoMatula(String pathOut) throws IOException {
@@ -138,21 +135,21 @@ public class GrafoNDNP {
 			}
 		});
 		
-		escribirGrafoColoreado(colorear(),pathOut);
+		colorear().escribirGrafoColoreado(pathOut);
 	}
 	
-	public void escribirGrafoColoreado(GrafoColoreado grafo, String miPathOut) throws IOException {
-		
-		PrintWriter salida = new PrintWriter(new FileWriter(miPathOut));
-		
-		salida.println(this.cantNodos + " " + grafo.getCantColores());
-
-		for (Nodo nodos : grafo.getNodos()) {
-			salida.println(nodos.id + " " + nodos.color);
-		}
-		
-		salida.close();
-	}
+//	public void escribirGrafoColoreado(GrafoColoreado grafo, String miPathOut) throws IOException {
+//		
+//		PrintWriter salida = new PrintWriter(new FileWriter(miPathOut));
+//		
+//		salida.println(this.cantNodos + " " + grafo.getCantColores());
+//
+//		for (Nodo nodos : grafo.getNodos()) {
+//			salida.println(nodos.id + " " + nodos.color);
+//		}
+//		
+//		salida.close();
+//	}
 
 	public ArrayList<Nodo> getNodo() {
 		return nodo;
