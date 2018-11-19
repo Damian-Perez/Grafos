@@ -60,11 +60,11 @@ public class CalculadoraDeEstadistica {
 	public static void main(String[] args) throws IOException {
 		CalculadoraDeEstadistica cde = new CalculadoraDeEstadistica();
 		System.out.println("aleatorio40");
-		cde.calcularEstadisticaGrafosAleatorios(600, 40, 1000, "aleatorio40");
+		cde.calcularEstadisticaGrafosAleatorios(600, 40, 10000, "aleatorio40");
 		System.out.println("aleatorio60");
-		cde.calcularEstadisticaGrafosAleatorios(600, 60, 30, "aleatorio60");
+		cde.calcularEstadisticaGrafosAleatorios(600, 60, 10000, "aleatorio60");
 		System.out.println("aleatorio90");
-		cde.calcularEstadisticaGrafosAleatorios(600, 90, 30, "aleatorio90");
+		cde.calcularEstadisticaGrafosAleatorios(600, 90, 10000, "aleatorio90");
 		System.out.println("regular50");
 		//cde.calcularEstadisticaGrafosRegulares(1000, 0.5, 10000, "regular50");
 		//System.out.println("regular75");

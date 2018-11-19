@@ -94,41 +94,50 @@ public class Generador {
 		salida.close();
 	}
 	
-	/* Generador de grafo regulares por grado */
-	/*Falta adaptar*/
-	/*
-	public static GrafoNPND generarGrafoRegularPorGrado(int cantNodos, int grado){
+
+	public static void generarGrafoRegularPorGrado(int cantNodos, int grado) throws IOException{
+		
+		int cantAristas = 0;
+		
 		// Si el grado es mayor a la cant de nodos - 1, devolver null
 		if(grado>cantNodos-1){
 			System.out.println("El grado no puede ser mayor que la cantidad de nodos menos uno.");
-			return null;
+			return;
 		}
 		// Si el grado es impar y el grado tambien, devolver null
 		if(cantNodos%2 != 0 && grado%2 != 0){
 			System.out.println("Al ser la cantidad de nodos impar, el grado debe ser par.");
-			return null;
+			return ;
 		}
 		// Crear la matriz de adyacencia para el grafo
-		MatrizSimetrica matAdyacencia = new MatrizSimetrica(cantNodos);
+		//MatrizSimetrica matAdyacencia = new MatrizSimetrica(cantNodos);
+		
+		ArrayList<Arista> aristas = new ArrayList<Arista>();
+		
 		// Voy colocando las aristas del grafo
 		int salto = 1;
 		for(int i=0; i<grado/2; i++){
 			// Doy una vuelta
 			for(int j=0; j<cantNodos; j++){
-				matAdyacencia.setValue(j, (j+salto)%cantNodos, true);
+				aristas.add(new Arista(j, (j+salto)%cantNodos));
+				cantAristas++;
 			}
 			salto++;
 		}
 		// En caso de ser impar, agrego las faltanes (las que tienen cantNodos/2 de distancia)
 		if(grado % 2 != 0){
 			for(int i=0; i<cantNodos/2; i++){
-				matAdyacencia.setValue(i, (i+cantNodos/2)%cantNodos, true);
+				aristas.add(new Arista(i, (i+cantNodos/2)%cantNodos));
+				cantAristas++;
 			}
 		}
-		// Devuelvo el grafo
-		return new GrafoNPND(matAdyacencia);
+
+		Grado grados = calcularGrado(aristas, cantNodos);
+		String miPath = "archivos/GrafoRegularPorgrafo_" + cantNodos + "_" + grado + ".in";
+		escribirGrafoEnArchivo(cantNodos, cantAristas, 0, grados, aristas, miPath);
+		
 	}
-	*/
+	
 	
 	/*Generador grafo regulares porcentaje de adyacencia */
 	/*Falta adaptar*/
