@@ -2,7 +2,6 @@ package grafos;
 
 import java.io.FileNotFoundException;
 import java.util.HashSet;
-import java.util.Set;
 
 public class ProgramaProbadorColoreo {
 
@@ -31,6 +30,7 @@ public class ProgramaProbadorColoreo {
 				
 		if(grafoColoreado.getCantColores()!=cantColores.size())
 			return false;
+		
 		return true;
 	}
 

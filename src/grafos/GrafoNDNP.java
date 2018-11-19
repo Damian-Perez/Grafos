@@ -113,27 +113,44 @@ public class GrafoNDNP {
 	
 	public void coloreoSecuencial(String pathOut) throws IOException {
 		Collections.shuffle(this.nodo);
+		
+		for (int i = 0; i < this.nodo.size(); i++) {
+			this.nodo.get(i).setColor(0);
+		}
+		
 		colorear().escribirGrafoColoreado(pathOut);
 	}
 	
 	public void coloreoWelshPowell(String pathOut) throws IOException {
+		
+		for (int i = 0; i < this.nodo.size(); i++) {
+			this.nodo.get(i).setColor(0);
+		}
 		
 		Collections.sort(this.nodo, new Comparator<Nodo>() {
 			public int compare(Nodo nodo1, Nodo nodo2) {
 				return nodo2.getGrado() - nodo1.getGrado(); 
 			}
 		});
+		
+		Collections.shuffle(this.nodo.subList(0,this.nodo.size()-1));
 
 		colorear().escribirGrafoColoreado(pathOut);
 	}
 	
 	public void coloreoMatula(String pathOut) throws IOException {
 		
+		for (int i = 0; i < this.nodo.size(); i++) {
+			this.nodo.get(i).setColor(0);
+		}
+		
 		Collections.sort(this.nodo, new Comparator<Nodo>() {
 			public int compare(Nodo nodo1, Nodo nodo2) {
 				return nodo1.getGrado() - nodo2.getGrado(); 
 			}
 		});
+		
+		Collections.shuffle(this.nodo.subList(0, this.nodo.size()-1));
 		
 		colorear().escribirGrafoColoreado(pathOut);
 	}
@@ -144,6 +161,10 @@ public class GrafoNDNP {
 
 	public int getCantNodos() {
 		return cantNodos;
+	}
+	
+	public int getCantidadDeColores() {
+		return cantidadColores;
 	}
 	
 }
