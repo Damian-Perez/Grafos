@@ -27,7 +27,6 @@ public class Generador {
 		Grado grado = calcularGrado(aristas, cantNodos);
 		String miPath = "archivos/GrafoProbabilidadAdyacencia_" + cantNodos + "_" + probabilidadArista + ".in";
 		
-		
 		escribirGrafoEnArchivo(cantNodos, cantAristas, porcAdyacencia, grado, aristas, miPath);
 	}
 
@@ -94,9 +93,9 @@ public class Generador {
 		salida.close();
 	}
 	
-
 	public static void generarGrafoRegularPorGrado(int cantNodos, int grado) throws IOException{
 		
+		int cantMaxAristas = ((cantNodos * (cantNodos - 1)) / 2);
 		int cantAristas = 0;
 		
 		// Si el grado es mayor a la cant de nodos - 1, devolver null
@@ -109,8 +108,6 @@ public class Generador {
 			System.out.println("Al ser la cantidad de nodos impar, el grado debe ser par.");
 			return ;
 		}
-		// Crear la matriz de adyacencia para el grafo
-		//MatrizSimetrica matAdyacencia = new MatrizSimetrica(cantNodos);
 		
 		ArrayList<Arista> aristas = new ArrayList<Arista>();
 		
@@ -124,6 +121,7 @@ public class Generador {
 			}
 			salto++;
 		}
+		
 		// En caso de ser impar, agrego las faltanes (las que tienen cantNodos/2 de distancia)
 		if(grado % 2 != 0){
 			for(int i=0; i<cantNodos/2; i++){
@@ -132,49 +130,90 @@ public class Generador {
 			}
 		}
 
+		double porcentajeA = (double) cantAristas / cantMaxAristas;
 		Grado grados = calcularGrado(aristas, cantNodos);
-		String miPath = "archivos/GrafoRegularPorgrafo_" + cantNodos + "_" + grado + ".in";
-		escribirGrafoEnArchivo(cantNodos, cantAristas, 0, grados, aristas, miPath);
+		String miPath = "archivos/GrafoRegularPorGrado_" + cantNodos + "_" + grado + ".in";
+		escribirGrafoEnArchivo(cantNodos, cantAristas, porcentajeA, grados, aristas, miPath);
 		
 	}
 	
-	
-	/*Generador grafo regulares porcentaje de adyacencia */
-	/*Falta adaptar*/
-	/*public static GrafoNPND generarGrafoRegularPorPorcentajeDeAdyacencia(int cantNodos, double porcentaje){
+	public static void generarGrafoRegularPorPorcentajeDeAdyacencia(int cantNodos, double porcentaje) throws IOException{
+		
 		// Calculo la cantidad de aristas que tendra el grafo
-		int cantAristas = (cantNodos*(cantNodos-1))/2;
+		int cantMaxAristas = (cantNodos*(cantNodos-1))/2;
 		// Calculo la cantidad de aristas que voy a tener (aproximadamente)
-		int cantAristasDelGrafoNPND = (int)(porcentaje * cantAristas);
-		// Obtengo el grado haciendo Grado = 2 * CantAristas / CantNodos
-		int grado = 2*cantAristasDelGrafoNPND/cantNodos;
-		return generarGrafoRegularPorGrado(cantNodos, grado);
-	}*/
+		int cantAristasDelGrafoNPND = (int)((porcentaje/100) * cantMaxAristas);
+		// Obtengo el grado haciendo
+		int grado = 2 * cantAristasDelGrafoNPND / cantNodos;
+		int cantAristasFinal = 0;
+		
+		// Si el grado es mayor a la cant de nodos - 1, devolver null
+				if(grado>cantNodos-1){
+					System.out.println("El grado no puede ser mayor que la cantidad de nodos menos uno.");
+					return;
+				}
+				// Si el grado es impar y el grado tambien, devolver null
+				if(cantNodos%2 != 0 && grado%2 != 0){
+					System.out.println("Al ser la cantidad de nodos impar, el grado debe ser par.");
+					return ;
+				}
+				// Crear la matriz de adyacencia para el grafo
+				//MatrizSimetrica matAdyacencia = new MatrizSimetrica(cantNodos);
+				
+				ArrayList<Arista> aristas = new ArrayList<Arista>();
+				
+				// Voy colocando las aristas del grafo
+				int salto = 1;
+				for(int i=0; i<grado/2; i++){
+					// Doy una vuelta
+					for(int j=0; j<cantNodos; j++){
+						aristas.add(new Arista(j, (j+salto)%cantNodos));
+						cantAristasFinal++;
+					}
+					salto++;
+				}
+				// En caso de ser impar, agrego las faltanes (las que tienen cantNodos/2 de distancia)
+				if(grado % 2 != 0){
+					for(int i=0; i<cantNodos/2; i++){
+						aristas.add(new Arista(i, (i+cantNodos/2)%cantNodos));
+						cantAristasFinal++;
+					}
+				}
+
+				int porcentajeA = (int) cantAristasFinal / cantMaxAristas;
+				Grado grados = calcularGrado(aristas, cantNodos);
+				String miPath = "archivos/GrafoRegularPorPorcentaje_" + cantNodos + "_" + porcentaje + ".in";
+				escribirGrafoEnArchivo(cantNodos, cantAristasFinal, porcentajeA, grados, aristas, miPath);
+	}
 	
-	/*Generador grafo N partito */
-	/*Falta adaptar*/
-	
-	/*public static GrafoNPND generarGrafoNPartito(int cantNodos, int n){
-		// Creo una matriz simetrica para almacenar las aristas
-		MatrizSimetrica matAdyacencia = new MatrizSimetrica(cantNodos);
+	public static void generarGrafoNPartito(int cantNodos, int n) throws IOException{
+		
+		ArrayList<Arista> aristas = new ArrayList<Arista>();
+		int cantAristas = 0;
+		
 		// Obtengo la cantidad de nodos que habrá por subconjuntos (el ultimo subconjunto puede no tener esta cantidad)
 		int cantNodosPorSubconjunto = cantNodos / n; 
 		int conjuntoLibre = cantNodos - cantNodosPorSubconjunto * (n-1);
+		
 		// Si la cant de nodos por subconjunto es menor o igual que la cant nodos del ultimo conjunto
 		if(conjuntoLibre >= n)
 			cantNodosPorSubconjunto++;
+		
 		// Por cada subconjunto, lo uno sus nodos al resto de los nodos de los demas subconjuntos menos a los del mismo
 		for(int i=0; i<n-1; i++){
 			// Por cada nodo del subconjunto lo uno al resto (solo los que no uní hasta ahora)
 			for(int j=0; j<cantNodosPorSubconjunto; j++){
 				// Uno el nodo actual con el resto que faltan unir de los demas subconjuntos
 				for(int k=0; k<cantNodos-cantNodosPorSubconjunto*(i+1); k++){
-					matAdyacencia.setValue(i*cantNodosPorSubconjunto+j, (i+1)*cantNodosPorSubconjunto+k, true);
+					aristas.add(new Arista(i*cantNodosPorSubconjunto+j, (i+1)*cantNodosPorSubconjunto+k));
+					cantAristas++;
 				}
 			}
 		}
-		// Devuelvo el grafo
-		return new GrafoNPND(matAdyacencia);
+		
+		Grado grados = calcularGrado(aristas, cantNodos);
+		String miPath = "archivos/GrafoNPartito_" + cantNodos + "_" + n + ".in";
+		escribirGrafoEnArchivo(cantNodos, cantAristas, 100, grados, aristas, miPath);
 	}
-	*/
+	
 }

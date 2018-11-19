@@ -7,10 +7,14 @@ public class App {
 		//Generador.generadorProbabilidadAdyacencia(5,70);
 		//Generador.generadorPorcentajeAdyacenteDeCadaArista(600,70);
 		//GrafoNDNP grafo = new GrafoNDNP("archivos/GrafoPorcentajeAdyacente_600_70.in");
-		Generador.generarGrafoRegularPorGrado(4, 2);
-		GrafoNDNP grafoRegular = new GrafoNDNP("archivos/GrafoRegularPorgrafo_" + 4 + "_" + 2 + ".in");
-		System.out.println(grafoRegular);
-		
+		//Generador.generarGrafoRegularPorGrado(4, 2, "GrafoRegular");
+		//GrafoNDNP grafoRegular = new GrafoNDNP("archivos/GrafoRegular_" + 4 + "_" + 2 + ".in");
+		//System.out.println(grafoRegular);
+		//Generador.generarGrafoRegularPorPorcentajeDeAdyacencia(10, 70);
+		//GrafoNDNP grafoRegularPorPorcentaje = new GrafoNDNP("archivos/GrafoRegularPorPorcentaje_" + 10 + "_" + 70.0 + ".in");
+		Generador.generarGrafoNPartito(5, 2);
+		GrafoNDNP grafoNPartito = new GrafoNDNP("archivos/GrafoNPartito_" + 5 + "_" + 2 + ".in");
+		//System.out.println(grafoRegularPorPorcentaje);
 		//grafo.coloreoMatula("archivos/GrafoPorcentajeAdyacente_50_70.out");
 		//grafo.coloreoMatula("archivos/GrafoPorcentajeAdyacente_50_70_2.out");
 		//grafo.coloreoMatula("archivos/GrafoPorcentajeAdyacente_50_70_3.out");
