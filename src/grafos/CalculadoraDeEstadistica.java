@@ -51,6 +51,40 @@ public class CalculadoraDeEstadistica {
 		
 	}
 	
+	public void calcularEstadisticaGrafosRegulares(int cantidadNodos, double porcentajeAdyacencia, int cantidadCorridas, String nombreSalida) throws IOException{
+		
+		Estadistica estadisticas = new Estadistica("Secuencial Aleatorio", cantidadNodos);
+		
+		Generador.generarGrafoRegularPorPorcentajeDeAdyacencia(cantidadNodos,porcentajeAdyacencia);
+		GrafoNDNP grafo = new GrafoNDNP("archivos/GrafoRegularPorPorcentaje_" + cantidadNodos + "_" + porcentajeAdyacencia + ".in");
+
+		for(int i=0; i<cantidadCorridas; i++){
+			if(i%100 == 0)
+				System.out.println("Recoriendo " + i);
+			
+			grafo.coloreoSecuencial("archivos/secuencial.DAT");
+			
+			if(estadisticas.esLaPrimerAparicion(grafo.getCantidadDeColores()))
+				estadisticas.setPrimeraApiricion(grafo.getCantidadDeColores(), i+1);
+			estadisticas.aumentarFrecuencia(grafo.getCantidadDeColores());
+		}
+		
+		// Almaceno las estadisticas en un archivo
+		try {
+			FileWriter fw = new FileWriter(nombreSalida+"SA.out");
+			fw.write(estadisticas.getAlgoritmo() + "\r\n");
+			fw.write(cantidadNodos + " " + String.format("%.2f", porcentajeAdyacencia) + " " + cantidadCorridas + "\r\n");
+			for(int j=0; j<estadisticas.getFrecuencia().length; j++){
+				if(estadisticas.getFrecuencia()[j]>0){
+					fw.write(j + " " + estadisticas.getFrecuencia()[j] + " " + estadisticas.getPrimeraAparicion()[j] + "\r\n");
+				}
+			}
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void actualizarEstadistica(Estadistica [] estadisticas, int algoritmo, int nroCorrida, int cantidadColoresObtenidos){
 		if(estadisticas[algoritmo].esLaPrimerAparicion(cantidadColoresObtenidos))
 			estadisticas[algoritmo].setPrimeraApiricion(cantidadColoresObtenidos, nroCorrida);
@@ -59,16 +93,16 @@ public class CalculadoraDeEstadistica {
 	
 	public static void main(String[] args) throws IOException {
 		CalculadoraDeEstadistica cde = new CalculadoraDeEstadistica();
-		System.out.println("aleatorio40");
-		cde.calcularEstadisticaGrafosAleatorios(600, 40, 10000, "aleatorio40");
-		System.out.println("aleatorio60");
-		cde.calcularEstadisticaGrafosAleatorios(600, 60, 10000, "aleatorio60");
-		System.out.println("aleatorio90");
-		cde.calcularEstadisticaGrafosAleatorios(600, 90, 10000, "aleatorio90");
+		//System.out.println("aleatorio40");
+		//cde.calcularEstadisticaGrafosAleatorios(600, 40, 10000, "aleatorio40");
+		//System.out.println("aleatorio60");
+		//cde.calcularEstadisticaGrafosAleatorios(600, 60, 10000, "aleatorio60");
+		//System.out.println("aleatorio90");
+		//cde.calcularEstadisticaGrafosAleatorios(600, 90, 10000, "aleatorio90");
 		System.out.println("regular50");
-		//cde.calcularEstadisticaGrafosRegulares(1000, 0.5, 10000, "regular50");
-		//System.out.println("regular75");
-		//cde.calcularEstadisticaGrafosRegulares(1000, 0.75, 10000, "regular75");
+		cde.calcularEstadisticaGrafosRegulares(1000, 50, 10000, "regular50");
+		System.out.println("regular75");
+		cde.calcularEstadisticaGrafosRegulares(1000, 75, 10000, "regular75");
 	}
 
 }
