@@ -20,8 +20,8 @@ public class CalculadoraDeEstadistica {
 			if(i%100 == 0)
 				System.out.println("Recoriendo " + i);
 			
-			grafo.coloreoSecuencial("archivos/secuencial.DAT");
-			actualizarEstadistica(estadisticas, 0, i+1, grafo.getCantidadDeColores());
+			//grafo.coloreoSecuencial("archivos/secuencial.DAT");
+			//actualizarEstadistica(estadisticas, 0, i+1, grafo.getCantidadDeColores());
 			
 			grafo.coloreoWelshPowell("archivos/welshpowell.DAT");
 			actualizarEstadistica(estadisticas, 1, i+1, grafo.getCantidadDeColores());
@@ -91,13 +91,13 @@ public class CalculadoraDeEstadistica {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		//CalculadoraDeEstadistica cde = new CalculadoraDeEstadistica();
-		//System.out.println("aleatorio40");
-		//cde.calcularEstadisticaGrafosAleatorios(600, 40, 10000, "aleatorio40");
-		//System.out.println("aleatorio60");
-		//cde.calcularEstadisticaGrafosAleatorios(600, 60, 10000, "aleatorio60");
-		//System.out.println("aleatorio90");
-		//cde.calcularEstadisticaGrafosAleatorios(600, 90, 10000, "aleatorio90");
+		CalculadoraDeEstadistica cde = new CalculadoraDeEstadistica();
+		System.out.println("aleatorio40");
+		cde.calcularEstadisticaGrafosAleatorios(600, 40, 10000, "aleatorio40");
+		System.out.println("aleatorio60");
+		cde.calcularEstadisticaGrafosAleatorios(600, 60, 10000, "aleatorio60");
+		System.out.println("aleatorio90");
+		cde.calcularEstadisticaGrafosAleatorios(600, 90, 10000, "aleatorio90");
 		//System.out.println("regular50");
 		//cde.calcularEstadisticaGrafosRegulares(1000, 50, 10000, "regular50");
 		//System.out.println("regular75");

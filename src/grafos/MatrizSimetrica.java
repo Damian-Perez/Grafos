@@ -46,11 +46,9 @@ public class MatrizSimetrica {
 		return matSimetrica[i * this.orden + j - ( (i*i) + 3 * i +2 ) / 2];
 	}
 
-	@Override
 	public String toString() {
 		return "MatrizSimetrica [matSimetrica=" + Arrays.toString(matSimetrica) + ", cantElementos=" + cantElementos
 				+ "]";
 	}
-
 	
 }

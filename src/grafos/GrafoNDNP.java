@@ -133,7 +133,8 @@ public class GrafoNDNP {
 			}
 		});
 		
-		Collections.shuffle(this.nodo.subList(0,this.nodo.size()-1));
+		
+		Collections.shuffle(this.nodo.subList(1,this.nodo.size()-1));
 
 		colorear().escribirGrafoColoreado(pathOut);
 	}
@@ -150,7 +151,7 @@ public class GrafoNDNP {
 			}
 		});
 		
-		Collections.shuffle(this.nodo.subList(0, this.nodo.size()-1));
+		Collections.shuffle(this.nodo.subList(1, this.nodo.size()-1));
 		
 		colorear().escribirGrafoColoreado(pathOut);
 	}
